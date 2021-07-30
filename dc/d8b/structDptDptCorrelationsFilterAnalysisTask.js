@@ -1,0 +1,25 @@
+var structDptDptCorrelationsFilterAnalysisTask =
+[
+    [ "filterTracks", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#a66342f245ec59af5ca109fa8ce343e49", null ],
+    [ "filterTrueTracks", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#a6f15f732b87d2ea046ef1b835360916f", null ],
+    [ "init", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#ab1d14f32d137e5f9860ff844e05d246c", null ],
+    [ "init", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#ab1d14f32d137e5f9860ff844e05d246c", null ],
+    [ "process", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#adf32914243ab15b12d669869cc5ab00a", null ],
+    [ "processWithCent", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#a9a7e3a321b07113a50c504efb4dcc603", null ],
+    [ "processWithCentMC", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#a881fa7ae0b9df87f60d0f1f01de7c25a", null ],
+    [ "processWithoutCent", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#ae08abd0b1238b05b405af28c4d631ad0", null ],
+    [ "processWithoutCentMC", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#a7f6e76879cd6a9bd80477d0d54ae149c", null ],
+    [ "acceptedevents", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#abdde294c242e5d4835bc89d3725f4973", null ],
+    [ "acceptedtrueevents", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#a7ea169bb94f82e7f80ad5df2c24adc1b", null ],
+    [ "cfgBinning", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#a8d8514bb5ef58c26424e7f6f34d74a6a", null ],
+    [ "cfgCentMultEstimator", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#ad0561e44ef014f3a87138f1ccc64335f", null ],
+    [ "cfgDataType", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#abacdae3170dd041f6cde2ecb864073f6", null ],
+    [ "cfgProcessPairs", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#aad3169086c95c6b8ed083dc717ad70a8", null ],
+    [ "cfgSystem", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#a00f2671bae9b16986e93b478e4f4a35f", null ],
+    [ "cfgTrackOneCharge", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#ab2aeec9c8028c405a4ffdc494c0fb595", null ],
+    [ "cfgTrackTwoCharge", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#a6c940d8f14dd38cabc60d1290e6b3efa", null ],
+    [ "cfgTrackType", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#a3d646703eec444eeca6c7cafb5965378", null ],
+    [ "fOutput", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#ab96d85d38638dabe19a174705f86e616", null ],
+    [ "scannedtracks", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#ab9ddf7587c18a68bce3eef3444f5c446", null ],
+    [ "scannedtruetracks", "dc/d8b/structDptDptCorrelationsFilterAnalysisTask.html#a8dfcad45cce2ed72220c0cbbd4d3c00b", null ]
+];
