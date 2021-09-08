@@ -55,7 +55,7 @@ class EMCALChannelData
   o2::emcal::Geometry* mGeometry = o2::emcal::Geometry::GetInstanceFromRunNumber(300000);
   int NCELLS = mGeometry->GetNCells();
 
-  EMCALChannelData(const ChannelCalibInitParams &hist) : mNBins(hist.nbins), mRange(1)
+  EMCALChannelData(const ChannelCalibInitParams& hist) : mNBins(hist.nbins), mRange(1)
   {
     // boost histogram with amplitude vs. cell ID, specify the range and binning of the amplitude axis
     mHisto = boost::histogram::make_histogram(boost::histogram::axis::regular<>(mNBins, 0, mRange, "t-texp"), boost::histogram::axis::integer<>(0, NCELLS, "CELL ID"));

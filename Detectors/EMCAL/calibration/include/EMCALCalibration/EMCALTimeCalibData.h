@@ -58,7 +58,7 @@ class EMCALTimeCalibData
   o2::emcal::Geometry* mGeometry = o2::emcal::Geometry::GetInstanceFromRunNumber(300000);
   int NCELLS = mGeometry->GetNCells();
 
-  EMCALTimeCalibData(const TimeCalibInitParams &par)
+  EMCALTimeCalibData(const TimeCalibInitParams& par)
   {
     // boost histogram with amplitude vs. cell ID, specify the range and binning of the amplitude axis
     mTimeHisto = boost::histogram::make_histogram(boost::histogram::axis::regular<>(par.mTimeBins, par.mTimeRange.at(0), par.mTimeRange.at(1), "t (ns)"), boost::histogram::axis::integer<>(0, NCELLS, "CELL ID"));
