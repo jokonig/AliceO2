@@ -35,11 +35,10 @@ using namespace o2::emcal;
 // including Framework/runDataProcessing
 void customize(std::vector<ConfigParamSpec>& workflowOptions)
 {
-  std::vector<ConfigParamSpec> options
-    {{"minNumEntries", VariantType::Int, 10000, {"minimum number of entries in histogram to trigger calibration"}},
-    {"calibMode", VariantType::String, "badcell", {"specify time for time calib or badcell for bad channel calib"}},
-    {"localRootFilePath", VariantType::String, "", {"path to local root file for storage of calibration params"}},
-    {"configKeyValues", VariantType::String, "", {"Semicolon separated key=value strings"}}};
+  std::vector<ConfigParamSpec> options{{"minNumEntries", VariantType::Int, 10000, {"minimum number of entries in histogram to trigger calibration"}},
+                                       {"calibMode", VariantType::String, "badcell", {"specify time for time calib or badcell for bad channel calib"}},
+                                       {"localRootFilePath", VariantType::String, "", {"path to local root file for storage of calibration params"}},
+                                       {"configKeyValues", VariantType::String, "", {"Semicolon separated key=value strings"}}};
 
   std::swap(workflowOptions, options);
 }
