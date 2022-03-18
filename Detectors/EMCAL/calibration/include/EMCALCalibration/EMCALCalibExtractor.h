@@ -40,11 +40,13 @@ class EMCALCalibExtractor
   using boostHisto = boost::histogram::histogram<std::tuple<boost::histogram::axis::regular<double, boost::use_default, boost::use_default, boost::use_default>, boost::histogram::axis::integer<>>, boost::histogram::unlimited_storage<std::allocator<char>>>;
 
  public:
-  EMCALCalibExtractor() = default;
+  EMCALCalibExtractor()
+  {
+    LOG(debug) << "initialized EMCALCalibExtractor";
+    mGeometry = o2::emcal::Geometry::GetInstanceFromRunNumber(300000);
+    NCELLS = mGeometry->GetNCells();
+  };
   ~EMCALCalibExtractor() = default;
-
-  o2::emcal::Geometry* mGeometry = o2::emcal::Geometry::GetInstanceFromRunNumber(300000);
-  int NCELLS = mGeometry->GetNCells();
 
   int getNsigma() const { return mSigma; }
   void setNsigma(int ns) { mSigma = ns; }
@@ -98,7 +100,7 @@ class EMCALCalibExtractor
   /// \param minTime -- min. time considered for fit
   /// \param maxTime -- max. time considered for fit
   template <typename... axes>
-  o2::emcal::TimeCalibrationParams calibrateTime(boost::histogram::histogram<axes...>& hist, double minTime = 0, double maxTime = 1000)
+  o2::emcal::TimeCalibrationParams calibrateTime(boost::histogram::histogram<axes...>& hist, double minTime = 0, double maxTime = 1000, double restrictFitRangeToMax = 25)
   {
 
     auto histReduced = boost::histogram::algorithm::reduce(hist, boost::histogram::algorithm::shrink(minTime, maxTime), boost::histogram::algorithm::shrink(0, NCELLS));
@@ -119,10 +121,19 @@ class EMCALCalibExtractor
 #endif
 
     for (unsigned int i = 0; i < NCELLS; ++i) {
-
       // project boost histogram to 1d just for 1 cell
       auto boostHist1d = o2::utils::ProjectBoostHistoXFast(histReduced, i, i + 1);
-      // ToDo: maybe cut histo to max +- 25 ns
+
+      LOG(debug) << "calibrate cell " << i;
+      // Restrict fit range to maximum +- restrictFitRangeToMax
+      if (restrictFitRangeToMax > 0) {
+        int maxElementIndex = std::max_element(boostHist1d.begin(), boostHist1d.end()) - boostHist1d.begin() - 1;
+        if (maxElementIndex < 0)
+          maxElementIndex = 0;
+        float maxElementCenter = 0.5 * (boostHist1d.axis(0).bin(maxElementIndex).upper() + boostHist1d.axis(0).bin(maxElementIndex).lower());
+        float timeInterval = 25; // in ns
+        boostHist1d = boost::histogram::algorithm::reduce(boostHist1d, boost::histogram::algorithm::shrink(maxElementCenter - timeInterval, maxElementCenter + timeInterval));
+      }
 
       try {
         auto fitValues = o2::utils::fitBoostHistoWithGaus<double>(boostHist1d);
@@ -140,6 +151,9 @@ class EMCALCalibExtractor
   bool mUseScaledHistoForBadChannels = false; ///< variable to specify whether or not we want to use the scaled histo for the claibration of bad channels.
   int mSigma = 4;                             ///< number of sigma used in the calibration to define outliers
   int mNThreads = 1;                          ///< number of threads used for calibration
+
+  o2::emcal::Geometry* mGeometry = nullptr;
+  int NCELLS = 17664;
 
   ClassDefNV(EMCALCalibExtractor, 1);
 };
