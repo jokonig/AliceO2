@@ -150,7 +150,7 @@ class EMCALCalibExtractor
         // add mean to time calib params
         TCP.addTimeCalibParam(i, mean, 0);
       } catch (o2::utils::FitGausError_t) {
-        LOG(warning) << "Fit failed for cell "<<i<<" (Will take the parameter of the previous cell: "<<mean<<"ns)";
+        LOG(warning) << "Fit failed for cell " << i << " (Will take the parameter of the previous cell: " << mean << "ns)";
         TCP.addTimeCalibParam(i, mean, 0); // take calib value of last cell; or 400 ns shift default value
       }
     }
