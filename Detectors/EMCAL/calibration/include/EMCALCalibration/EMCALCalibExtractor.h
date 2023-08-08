@@ -40,10 +40,9 @@ namespace o2
 {
 namespace emcal
 {
-
+using boostHisto = boost::histogram::histogram<std::tuple<boost::histogram::axis::regular<double, boost::use_default, boost::use_default, boost::use_default>, boost::histogram::axis::integer<>>, boost::histogram::unlimited_storage<std::allocator<char>>>;
 class EMCALCalibExtractor
 {
-  using boostHisto = boost::histogram::histogram<std::tuple<boost::histogram::axis::regular<double, boost::use_default, boost::use_default, boost::use_default>, boost::histogram::axis::integer<>>, boost::histogram::unlimited_storage<std::allocator<char>>>;
   using slice_t = int;
   using cell_t = int;
 
@@ -253,8 +252,8 @@ class EMCALCalibExtractor
           outputMapNHits[sliceIndex][cellID] = sumVal;
         }
 
-      } // end loop over the slices
-    }   // end loop over the cells
+      }                             // end loop over the slices
+    }                               // end loop over the cells
     for (const auto& [sliceIndex, slice] : sliceMap) {
       Double_t meanPerSlice = 0.0;  // mean energy per slice to be compared to the cell
       Double_t sigmaPerSlice = 0.0; // sigma energy per slice to be compared to the cell
