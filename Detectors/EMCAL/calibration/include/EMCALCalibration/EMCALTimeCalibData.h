@@ -104,7 +104,7 @@ class EMCALTimeCalibData
   o2::emcal::TimeCalibrationParams process();
 
  private:
-  boostHisto mTimeHisto;                                ///< histogram with cell time vs. cell ID
+  boostHisto mTimeHisto; ///< histogram with cell time vs. cell ID
 
   int mEvents = 0;                                      ///< current number of events
   long unsigned int mNEntriesInHisto = 0;               ///< number of entries in histogram

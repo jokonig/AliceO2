@@ -51,10 +51,10 @@ int main(int argc, char** argv)
   std::string nameCalibInputHistAdd; // additional input histogram for bad channel calibration if time should be considered
   std::string namePathStoreLocal;    // name for path + histogram to store the calibration locally in root TH1 format
 
-  unsigned int nthreads;             // number of threads used by openMP
+  unsigned int nthreads; // number of threads used by openMP
 
-  unsigned long rangestart;          // 30/10/2021, 01:02:32 for run 505566 -> 1635548552000
-  unsigned long rangeend;            // 30/10/2021, 02:31:10 for run 505566 -> 1635553870000
+  unsigned long rangestart; // 30/10/2021, 01:02:32 for run 505566 -> 1635548552000
+  unsigned long rangeend;   // 30/10/2021, 02:31:10 for run 505566 -> 1635553870000
 
   double timeRangeLow;
   double timeRangeHigh;

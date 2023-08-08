@@ -252,8 +252,8 @@ class EMCALCalibExtractor
           outputMapNHits[sliceIndex][cellID] = sumVal;
         }
 
-      }                             // end loop over the slices
-    }                               // end loop over the cells
+      } // end loop over the slices
+    }   // end loop over the cells
     for (const auto& [sliceIndex, slice] : sliceMap) {
       Double_t meanPerSlice = 0.0;  // mean energy per slice to be compared to the cell
       Double_t sigmaPerSlice = 0.0; // sigma energy per slice to be compared to the cell
