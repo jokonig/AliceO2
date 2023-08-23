@@ -244,6 +244,20 @@ class EMCALChannelCalibDevice : public o2::framework::Task
 
     LOG(debug) << "Processing TF " << tfcounter << " with " << data.size() << " cells";
 
+
+    std::unordered_map<int64_t, bool> mapCTPInfo;
+    if(mRejectL0Triggers){
+      for (auto& ctpDigit : *ctpDigits) {
+        int64_t bcCTP = ctpDigit.intRecord.toLong();
+        int64_t classMaskCTP = ctpDigit.CTPClassMask.to_ulong();
+        for (const uint64_t& selectedClassMask : mSelectedClassMasks) {
+          if ((classMaskCTP & selectedClassMask) != 0) {
+            mapCTPInfo[bcCTP] = true;
+          }
+        }
+      }
+    }
+
     // call process for every event in the trigger record to ensure correct event counting for the calibration.
     for (const auto& trg : InputTriggerRecord) {
       if (!trg.getNumberOfObjects()) {
@@ -259,30 +273,11 @@ class EMCALChannelCalibDevice : public o2::framework::Task
       }
 
       // reject all triggers that are not included in the classMask (typically only EMC min. bias should be accepted)
-      uint64_t classMaskCTP = 0;
       if (mRejectL0Triggers) {
-        bool acceptEvent = false;
-        // Match the EMCal bc to the CTP bc
+        // Check if bc contains EMC data
         int64_t bcEMC = trg.getBCData().toLong();
-        for (auto& ctpDigit : *ctpDigits) {
-          int64_t bcCTP = ctpDigit.intRecord.toLong();
-          LOG(debug) << "bcEMC " << bcEMC << "   bcCTP " << bcCTP;
-          if (bcCTP == bcEMC) {
-            // obtain trigger mask that belongs to the selected bc
-            classMaskCTP = ctpDigit.CTPClassMask.to_ulong();
-            // now check if min bias trigger is not in mask
-            for (const uint64_t& selectedClassMask : mSelectedClassMasks) {
-              if ((classMaskCTP & selectedClassMask) != 0) {
-                LOG(debug) << "trigger " << selectedClassMask << " found! accepting event";
-                acceptEvent = true;
-                break;
-              }
-            }
-            break; // break as bc was matched
-          }
-        }
-        // if current event is not accepted (selected triggers not present), move on to next event
-        if (!acceptEvent) {
+        if(!mapCTPInfo.count(bcEMC)){
+          LOG(debug) << "no selected trigger found for bc " << bcEMC;
           continue;
         }
       }
