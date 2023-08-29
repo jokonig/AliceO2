@@ -71,7 +71,7 @@ class EMCALChannelData
     mVecNEntriesInHisto.resize(mNThreads);
     mHisto.resize(mNThreads);
     mHistoTime.resize(mNThreads);
-    for(size_t i = 0; i < mNThreads; ++i ){
+    for (size_t i = 0; i < mNThreads; ++i) {
       mHisto[i] = boost::histogram::make_histogram(boost::histogram::axis::regular<>(mNBins, 0., mRange), boost::histogram::axis::regular<>(NCELLS, -0.5, NCELLS - 0.5));
       mHistoTime[i] = boost::histogram::make_histogram(boost::histogram::axis::regular<>(mNBinsTime, mRangeTimeHigh, mRangeTimeLow), boost::histogram::axis::regular<>(NCELLS, -0.5, NCELLS - 0.5));
       mVecNEntriesInHisto[i] = 0;
@@ -96,32 +96,32 @@ class EMCALChannelData
   /// \brief Check if enough stataistics was accumulated to perform calibration
   bool hasEnoughData() const;
   /// \brief Get current calibration histogram
-  const boostHisto& getHisto(){
+  const boostHisto& getHisto()
+  {
     // set the summed histogram to one of the existing histograms
     mHistoSummed = mHisto[0];
     // reset the histogram
     mHistoSummed.reset();
     // Sum up all entries
-    for(const auto & h: mHisto){
-      mHistoSummed+=h;
+    for (const auto& h : mHisto) {
+      mHistoSummed += h;
     }
     return mHistoSummed;
   }
-
 
   /// \brief Set new calibration histogram
   void setHisto(boostHisto hist, int nthr = 0) { mHisto[nthr] = hist; }
 
   /// \brief Get current calibration histogram with time information
-  const boostHisto& getHistoTime(){
-    mHistoTimeSummed=mHistoTime[0];
+  const boostHisto& getHistoTime()
+  {
+    mHistoTimeSummed = mHistoTime[0];
     mHistoTimeSummed.reset();
-    for(const auto & h: mHistoTime){
-      mHistoTimeSummed+=h;
+    for (const auto& h : mHistoTime) {
+      mHistoTimeSummed += h;
     }
     return mHistoTimeSummed;
   }
-
 
   /// \brief Set new calibration histogram with timing info
   void setHistoTime(boostHisto hist, int nthr = 0) { mHistoTime[nthr] = hist; }
@@ -148,7 +148,7 @@ class EMCALChannelData
   void setGainCalibFactors(o2::emcal::GainCalibrationFactors* calibFactors)
   {
     mGainCalibFactors = calibFactors;
-    for(unsigned int i = 0; i < mArrGainCalibFactors.size(); ++i){
+    for (unsigned int i = 0; i < mArrGainCalibFactors.size(); ++i) {
       mArrGainCalibFactors[i] = mGainCalibFactors->getGainCalibFactors(i);
     }
     mApplyGainCalib = true;
@@ -157,7 +157,7 @@ class EMCALChannelData
  private:
   float mRange = 10;                                    ///< Maximum energy range of boost histogram (will be overwritten by values in the EMCALCalibParams)
   int mNBins = 1000;                                    ///< Number of bins in the boost histogram (will be overwritten by values in the EMCALCalibParams)
-  size_t mNThreads = 1;                                 ///< Number of threads used for filling the boost histograms                      
+  size_t mNThreads = 1;                                 ///< Number of threads used for filling the boost histograms
   std::vector<boostHisto> mHisto;                       ///< vector of 2d boost histogram with cellID vs cell energy
   boostHisto mHistoSummed;                              ///< summed 2d boost histogram (sum of mHisto)
   int mNBinsTime = 1000;                                ///< Number of time bins in boost histogram (cell time vs. cell ID)

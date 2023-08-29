@@ -53,11 +53,11 @@ class EMCALTimeCalibData
 
   EMCALTimeCalibData()
   {
-    
-    mNThreads=EMCALCalibParams::Instance().nThreads_tc;
+
+    mNThreads = EMCALCalibParams::Instance().nThreads_tc;
     mTimeHisto.resize(mNThreads);
     mVecNEntriesInHisto.resize(mNThreads);
-    for(size_t i = 0; i < mNThreads; ++i ){
+    for (size_t i = 0; i < mNThreads; ++i) {
       mTimeHisto[i] = boost::histogram::make_histogram(boost::histogram::axis::regular<>(EMCALCalibParams::Instance().nBinsTimeAxis_tc, EMCALCalibParams::Instance().minValueTimeAxis_tc, EMCALCalibParams::Instance().maxValueTimeAxis_tc), boost::histogram::axis::regular<>(NCELLS, -0.5, NCELLS - 0.5));
       mVecNEntriesInHisto[i] = 0;
     }
@@ -93,14 +93,15 @@ class EMCALTimeCalibData
   void addNEntriesInHisto(long unsigned int n) { mNEntriesInHisto += n; }
 
   /// \brief Get current histogram
-  const boostHisto& getHisto(){
+  const boostHisto& getHisto()
+  {
     // set the summed histogram to one of the existing histograms
     mHistoSummed = mTimeHisto[0];
     // reset the histogram
     mHistoSummed.reset();
     // Sum up all entries
-    for(const auto & h: mTimeHisto){
-      mHistoSummed+=h;
+    for (const auto& h : mTimeHisto) {
+      mHistoSummed += h;
     }
     return mHistoSummed;
   }
